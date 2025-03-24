@@ -140,7 +140,9 @@ function App() {
             <div className="modal-body">
               {/* Display recipe body */}
               {!isEditing ? (
-                <p>{selectedRecipe.body}</p>
+                <div>{(selectedRecipe.body.trim("  ")).forEach(element => {
+                    return <p>{element}</p>
+                })}</div>
               ) : (
                 <textarea
                   value={selectedRecipe.body}
