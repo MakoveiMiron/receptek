@@ -1,16 +1,20 @@
 /* General Body */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #121212; /* Dark background */
-  color: #e0e0e0; /* Light text for contrast */
+  background-color: #121212;
+  color: #e0e0e0;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-/* Container */
+/* Container középre igazítás */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 30px;
   padding: 20px;
   color: #fff;
 }
@@ -32,7 +36,7 @@ h1 {
 
 /* Recipe Item */
 .recipe-item {
-  background: #333; /* Dark background */
+  background: #333;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -60,8 +64,8 @@ button {
 }
 
 input {
-  background-color: #333; /* Dark input background */
-  color: #fff; /* White text for input */
+  background-color: #333;
+  color: #fff;
   border: 1px solid #444;
 }
 
@@ -71,7 +75,7 @@ input:focus {
 }
 
 button {
-  background-color: #6200ea; /* Accent color */
+  background-color: #6200ea;
   color: white;
   border: none;
   cursor: pointer;
@@ -106,14 +110,14 @@ button:disabled {
   100% { transform: rotate(360deg); }
 }
 
-/* Modal */
+/* Fullscreen Modal */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,72 +125,63 @@ button:disabled {
 }
 
 .modal-content {
-  background-color: #2b2b2b; /* Dark background for modal */
+  background-color: #121212;
   padding: 25px;
-  border-radius: 12px;
-  max-width: 800px;
+  border-radius: 0;
   width: 100%;
-  height: 80%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   overflow-y: auto;
 }
 
 .modal h2 {
-  justify-content: center;
-  font-size: 1.8rem;
+  text-align: center;
+  font-size: 2rem;
   color: #fff;
 }
 
-/* Modal Body - Text Segment Styling */
-.modal-body p {
-  margin: 12px 0;
-  font-size: 1rem;
-  color: #e0e0e0;
+/* Modal body */
+.modal-body {
+  flex-grow: 1;
+  padding: 10px 0;
 }
 
-
 .modal-body textarea {
-  width: 90%;
-  height: 70%; /* Large height for textarea */
+  width: 100%;
+  height: 75vh;
   padding: 16px;
   border-radius: 8px;
   border: 1px solid #444;
-  background-color: #333; /* Dark background */
+  background-color: #333;
   color: #fff;
   resize: none;
   font-size: 1rem;
 }
 
+.modal-body p {
+  margin: 12px 0;
+  font-size: 1.1rem;
+  color: #e0e0e0;
+}
+
+/* Modal actions */
 .modal-actions {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
-textarea[readonly] {
+textarea:disabled {
   background-color: #222;
   cursor: not-allowed;
 }
 
-button {
-  background-color: #6200ea;
-  color: white;
-  padding: 12px 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #3700b3;
-}
-
-/* Mobile Responsiveness */
+/* Mobile view adjustments */
 @media (max-width: 768px) {
   .container {
     padding: 15px;
+    margin-top: 20px;
   }
 
   h1 {
@@ -197,20 +192,27 @@ button:hover {
     padding: 15px;
   }
 
-  .modal-content {
-    padding: 20px;
-  }
-
-  button {
-    font-size: 1rem;
-  }
-
   input,
   button {
-    padding: 12px;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .modal-content {
+    padding: 15px;
   }
 
   .modal-body textarea {
-    height: 300px; /* Adjust textarea height for smaller screens */
+    height: 60vh;
+    font-size: 0.9rem;
+  }
+
+  .modal-actions button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .modal-body p {
+    font-size: 0.95rem;
   }
 }
