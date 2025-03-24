@@ -10,7 +10,7 @@ export default function RecipePage() {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    fetch(`https://your-backend-url.com/recipes/${id}`)
+    fetch(`https://receptek-backend-production.up.railway.app/recipes/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setRecipe(data);
@@ -21,7 +21,7 @@ export default function RecipePage() {
 
   const saveChanges = async () => {
     try {
-      const response = await fetch(`https://your-backend-url.com/recipes/${id}`, {
+      const response = await fetch(`https://receptek-backend-production.up.railway.app/recipes/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ body: editedBody }),

@@ -13,7 +13,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('https://your-backend-url.com/recipes')  // Backend URL
+    fetch(`https://receptek-backend-production.up.railway.app/recipes`)  // Backend URL
       .then((res) => res.json())
       .then((data) => setRecipes(data))
       .catch((err) => console.error(err));
@@ -27,7 +27,7 @@ function App() {
 
     setIsLoading(true);
     try {
-      const response = await fetch('https://your-backend-url.com/recipes', {
+      const response = await fetch(`https://receptek-backend-production.up.railway.app/recipes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ link, name }),
