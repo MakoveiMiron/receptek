@@ -134,6 +134,7 @@ button:disabled {
 }
 
 .modal h2 {
+  justify-content: center;
   font-size: 1.8rem;
   color: #fff;
 }
@@ -148,7 +149,7 @@ button:disabled {
 
 .modal-body textarea {
   width: 90%;
-  height: 400px; /* Large height for textarea */
+  height: 70%; /* Large height for textarea */
   padding: 16px;
   border-radius: 8px;
   border: 1px solid #444;

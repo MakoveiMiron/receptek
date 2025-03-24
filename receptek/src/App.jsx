@@ -138,18 +138,12 @@ function App() {
               </a>
             </p>
             <div className="modal-body">
-              {/* Display recipe body */}
-              {!isEditing ? (
-  selectedRecipe.body.split("  ").map((element, index) => (
-    <p key={index}>{element.trim()}</p>
-  ))
-) : (
-  <textarea
-    value={selectedRecipe.body}
-    onChange={(e) => setSelectedRecipe({ ...selectedRecipe, body: e.target.value })}
-    style={{ height: '400px' }} // Set height for textarea
-  />
-)}
+              <textarea
+                value={selectedRecipe.body}
+                onChange={(e) => setSelectedRecipe({ ...selectedRecipe, body: e.target.value })}
+                style={{ height: '400px' }}
+                disabled={!isEditing}
+              />
             </div>
             <div className="modal-actions">
               <button onClick={closeModal}>Bezárás</button>
