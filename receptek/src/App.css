@@ -168,8 +168,9 @@ button:disabled {
 }
 
 .modal-body textarea {
-  width: 50%;
-  height: 900px;
+  justify-self: center;
+  width: 60%;
+  height: 1200px;
   padding: 1%;
   border-radius: 8px;
   border: 1px solid #444;
