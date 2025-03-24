@@ -209,6 +209,10 @@ textarea[readonly] {
 /* Telefonos nézet finomítás */
 @media (max-width: 768px) {
 
+  .container{
+    width: 100%;
+  }
+
   h1 {
     font-size: 2rem;
   }
@@ -238,6 +242,7 @@ textarea[readonly] {
   }
 
   .modal-actions button {
+    margin-top: none;
     font-size: 0.7rem;
     padding: 6px 10px;
   }
