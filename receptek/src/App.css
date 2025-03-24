@@ -257,7 +257,7 @@ textarea[readonly] {
 
   /* Textarea módosítások */
   .modal-body textarea {
-    width: 100%; /* Kitölti a képernyő szélességét */
+    width: 90%; /* Kitölti a képernyő szélességét */
     height: 80vh; /* Állandó magasság a telefonos nézethez, 70%-a a képernyő magasságának */
     padding: 2%; /* Kisebb padding */
     border-radius: 8px;
