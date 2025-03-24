@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/MakoveiMiron/receptek",
+  "homepage": "https://MakoveiMiron.github.io/receptek/",
   "scripts": {
     "start": "vite",
     "build": "vite build",
