@@ -208,9 +208,6 @@ textarea[readonly] {
 
 /* Telefonos nézet finomítás */
 @media (max-width: 768px) {
-  .container {
-    padding: 15px;
-  }
 
   h1 {
     font-size: 2rem;
@@ -229,8 +226,7 @@ textarea[readonly] {
   }
 
   .modal-body textarea {
-    width: 90%;
-    height: 90%;
+    height: 80%;
     font-size: 0.5rem; /* arányosan kisebb */
     padding: 2%;
   }
