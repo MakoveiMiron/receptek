@@ -10,9 +10,8 @@ function App() {
   const [link, setLink] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal állapot
-  const [selectedRecipe, setSelectedRecipe] = useState(null); // Kiválasztott recept
-  const [isEditing, setIsEditing] = useState(false); // Edit mode state
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [selectedRecipe, setSelectedRecipe] = useState(null); // Selected recipe
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,37 +58,12 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedRecipe(null);
-    setIsEditing(false); // Reset editing state when modal is closed
   };
 
-  const handleEdit = () => {
-    setIsEditing(true); // Enable editing mode
-  };
-
-  const handleSave = async () => {
-    if (!selectedRecipe.body) {
-      toast.error('A recept szövege nem lehet üres!');
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const response = await fetch(`https://receptek-backend-production.up.railway.app/recipes/${selectedRecipe.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ body: selectedRecipe.body }),
-      });
-
-      if (!response.ok) throw new Error('Hiba a recept mentése közben.');
-
-      toast.success('Recept mentve!');
-      setIsEditing(false);
-    } catch (error) {
-      toast.error('Hiba történt a recept mentésekor!');
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
+  const formatText = (text) => {
+    // Split text by "      " and wrap each segment in a <p> tag
+    const textSegments = text.split('      ');
+    return textSegments.map((segment, index) => <p key={index}>{segment.trim()}</p>);
   };
 
   return (
@@ -137,26 +111,28 @@ function App() {
               </a>
             </p>
             <div className="modal-body">
-              {/* Display recipe body */}
-              {!isEditing ? (
-                <p>{selectedRecipe.body}</p>
-              ) : (
-                <textarea
-                  value={selectedRecipe.body}
-                  onChange={(e) => setSelectedRecipe({ ...selectedRecipe, body: e.target.value })}
-                  style={{ height: '400px' }} // Set height for textarea
-                />
-              )}
+              {/* If not in edit mode, display text in separate <p> elements */}
+              {selectedRecipe.body && !isModalOpen
+                ? formatText(selectedRecipe.body) // Format text without edit mode
+                : (
+                  <textarea
+                    value={selectedRecipe.body}
+                    onChange={(e) => setSelectedRecipe({ ...selectedRecipe, body: e.target.value })}
+                    rows={10}
+                    style={{ width: '100%', resize: 'none' }}
+                  />
+                )
+              }
             </div>
             <div className="modal-actions">
               <button onClick={closeModal}>Bezárás</button>
-              {!isEditing ? (
-                <button onClick={handleEdit}>Szerkesztés</button>
-              ) : (
-                <button onClick={handleSave} disabled={isLoading}>
-                  {isLoading ? <div className="spinner"></div> : 'Mentés'}
-                </button>
-              )}
+              <button
+                onClick={() => {
+                  // Handle Save logic here
+                }}
+              >
+                Mentés
+              </button>
             </div>
           </div>
         </div>
