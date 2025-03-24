@@ -80,7 +80,7 @@ input:focus {
   border-color: #6200ea;
 }
 
-button {
+.modal-actions button {
   background-color: #6200ea;
   color: white;
   border: none;
