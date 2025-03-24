@@ -224,7 +224,7 @@ textarea[readonly] {
   }
 
   .container {
-    width: 100%; /* Tölti ki a teljes szélességet */
+    width: 90%; /* Tölti ki a teljes szélességet */
     margin-top: 15px;
     padding: 15px;
   }
@@ -258,7 +258,7 @@ textarea[readonly] {
   /* Textarea módosítások */
   .modal-body textarea {
     width: 100%; /* Kitölti a képernyő szélességét */
-    height: 70vh; /* Állandó magasság a telefonos nézethez, 70%-a a képernyő magasságának */
+    height: 90vh; /* Állandó magasság a telefonos nézethez, 70%-a a képernyő magasságának */
     padding: 2%; /* Kisebb padding */
     border-radius: 8px;
     border: 1px solid #444;
