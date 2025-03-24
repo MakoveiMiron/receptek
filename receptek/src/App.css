@@ -218,13 +218,13 @@ textarea[readonly] {
 /* Telefonos nézet finomítás */
 @media (max-width: 768px) {
   body {
-    width: 400px;
-    height: 90%; /* Tölti ki a teljes magasságot */
+    width: 100%; /* Eltávolítottam a fix szélességet, hogy alkalmazkodjon a képernyőhöz */
+    height: 100vh; /* Tölti ki a teljes magasságot */
     overflow: hidden; /* Elkerüljük a görgetést az oldalon */
   }
 
   .container {
-    width: 400px;
+    width: 100%; /* Tölti ki a teljes szélességet */
     margin-top: 15px;
     padding: 15px;
   }
@@ -239,24 +239,44 @@ textarea[readonly] {
 
   .modal-content {
     padding: 10px;
+    height: 100%; /* Modál tartalmának teljes magasságot */
+    box-sizing: border-box; /* A padding ne növelje a modál méretét */
   }
 
   .modal h2 {
     font-size: 1.2rem;
   }
 
+  /* Modal body rész */
+  .modal-body {
+    flex-grow: 1;
+    padding: 10px 0;
+    overflow-y: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Textarea módosítások */
   .modal-body textarea {
-    height: 400px; /* Állandó magasság */
-    font-size: 0.5rem; /* Kisebb betűméret */
-    margin-bottom: none;
+    width: 100%; /* Kitölti a képernyő szélességét */
+    height: 70vh; /* Állandó magasság a telefonos nézethez, 70%-a a képernyő magasságának */
+    padding: 2%; /* Kisebb padding */
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #fff;
+    resize: none;
+    font-size: 1rem;
+    margin: 0; /* Eltávolítja a margót */
   }
 
   .modal-body p {
     font-size: 0.7rem;
   }
 
+  /* Modal actions */
   .modal-actions button {
     font-size: 0.7rem;
     padding: 6px 10px;
   }
 }
+
