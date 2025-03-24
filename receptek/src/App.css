@@ -226,8 +226,8 @@ textarea[readonly] {
   }
 
   .modal-body textarea {
-    height: 80%;
-    width: 100%;
+    height: 600px;
+    width: 80%;
     font-size: 0.5rem; /* arányosan kisebb */
     padding: 2%;
   }
