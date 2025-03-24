@@ -140,7 +140,7 @@ function App() {
             <div className="modal-body">
               {/* Display recipe body */}
               {!isEditing ? (
-                <div>{(selectedRecipe.body.trim("  ")).forEach(element => {
+                <div>{(selectedRecipe.body.split("  ")).forEach(element => {
                     return <p>{element}</p>
                 })}</div>
               ) : (
