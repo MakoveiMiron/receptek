@@ -147,7 +147,7 @@ button:disabled {
 
 
 .modal-body textarea {
-  width: 100%;
+  width: 90%;
   height: 400px; /* Large height for textarea */
   padding: 16px;
   border-radius: 8px;
