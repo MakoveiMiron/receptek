@@ -216,7 +216,8 @@ textarea[readonly] {
 /* Telefonos nézet finomítás */
 @media (max-width: 768px) {
   body {
-    height: 100vh; /* Tölti ki a teljes magasságot */
+    width: 100%;
+    height: 80vh; /* Tölti ki a teljes magasságot */
     overflow: hidden; /* Elkerüljük a görgetést az oldalon */
   }
 
