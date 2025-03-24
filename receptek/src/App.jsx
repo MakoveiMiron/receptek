@@ -12,6 +12,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal állapot
   const [selectedRecipe, setSelectedRecipe] = useState(null); // Kiválasztott recept
+  const [isEditing, setIsEditing] = useState(false); // Edit mode state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,6 +59,37 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedRecipe(null);
+    setIsEditing(false); // Reset editing state when modal is closed
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true); // Enable editing mode
+  };
+
+  const handleSave = async () => {
+    if (!selectedRecipe.body) {
+      toast.error('A recept szövege nem lehet üres!');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await fetch(`https://receptek-backend-production.up.railway.app/recipes/${selectedRecipe.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ body: selectedRecipe.body }),
+      });
+
+      if (!response.ok) throw new Error('Hiba a recept mentése közben.');
+
+      toast.success('Recept mentve!');
+      setIsEditing(false);
+    } catch (error) {
+      toast.error('Hiba történt a recept mentésekor!');
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -106,21 +138,25 @@ function App() {
             </p>
             <div className="modal-body">
               {/* Display recipe body */}
-              <textarea
-                value={selectedRecipe.body}
-                readOnly={!isModalOpen}
-                onChange={(e) => setSelectedRecipe({ ...selectedRecipe, body: e.target.value })}
-              />
+              {!isEditing ? (
+                <p>{selectedRecipe.body}</p>
+              ) : (
+                <textarea
+                  value={selectedRecipe.body}
+                  onChange={(e) => setSelectedRecipe({ ...selectedRecipe, body: e.target.value })}
+                  style={{ height: '400px' }} // Set height for textarea
+                />
+              )}
             </div>
             <div className="modal-actions">
               <button onClick={closeModal}>Bezárás</button>
-              <button
-                onClick={() => {
-                  // Handle Save logic here
-                }}
-              >
-                Mentés
-              </button>
+              {!isEditing ? (
+                <button onClick={handleEdit}>Szerkesztés</button>
+              ) : (
+                <button onClick={handleSave} disabled={isLoading}>
+                  {isLoading ? <div className="spinner"></div> : 'Mentés'}
+                </button>
+              )}
             </div>
           </div>
         </div>
