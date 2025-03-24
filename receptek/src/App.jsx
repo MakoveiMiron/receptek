@@ -3,18 +3,15 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RecipePage from './RecipePage';
-import Modal from 'react-modal';
 import './App.css';
-
-Modal.setAppElement('#root');
 
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [link, setLink] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentRecipe, setCurrentRecipe] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal állapot
+  const [selectedRecipe, setSelectedRecipe] = useState(null); // Kiválasztott recept
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,44 +51,13 @@ function App() {
   };
 
   const openModal = (recipe) => {
-    setCurrentRecipe(recipe);
+    setSelectedRecipe(recipe);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setCurrentRecipe(null);
-  };
-
-  const handleSaveChanges = async () => {
-    if (!currentRecipe.name || !currentRecipe.body) {
-      toast.error('Kérlek, add meg a recept nevét és leírását!');
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const response = await fetch(`https://receptek-backend-production.up.railway.app/recipes/${currentRecipe.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: currentRecipe.name, body: currentRecipe.body }),
-      });
-
-      if (!response.ok) throw new Error('Hiba a recept mentése közben.');
-
-      const updatedRecipe = await response.json();
-      setRecipes(recipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-      ));
-
-      toast.success('Recept mentése sikerült!');
-      closeModal();
-    } catch (error) {
-      toast.error('Hiba történt a recept mentése közben!');
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
+    setSelectedRecipe(null);
   };
 
   return (
@@ -122,41 +88,43 @@ function App() {
 
       <div className="recipe-list">
         {recipes.map((recipe) => (
-          <div key={recipe.id} className="recipe-item">
-            <Link to={`/recipe/${recipe.id}`} onClick={() => openModal(recipe)}>
-              {recipe.name}
-            </Link>
+          <div key={recipe.id} className="recipe-item" onClick={() => openModal(recipe)}>
+            <span>{recipe.name}</span>
           </div>
         ))}
       </div>
 
-      {/* Modal for editing the recipe */}
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Edit Recipe"
-        className="modal"
-        overlayClassName="overlay"
-      >
-        {currentRecipe && (
-          <>
-            <h2>Recept szerkesztése</h2>
-            <input
-              type="text"
-              placeholder="Recept neve"
-              value={currentRecipe.name}
-              onChange={(e) => setCurrentRecipe({ ...currentRecipe, name: e.target.value })}
-            />
-            <textarea
-              placeholder="Recept leírása"
-              value={currentRecipe.body}
-              onChange={(e) => setCurrentRecipe({ ...currentRecipe, body: e.target.value })}
-            />
-            <button onClick={handleSaveChanges}>Mentés</button>
-            <button onClick={closeModal}>Mégse</button>
-          </>
-        )}
-      </Modal>
+      {/* Modal */}
+      {isModalOpen && selectedRecipe && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>{selectedRecipe.name}</h2>
+            <p>
+              <a href={selectedRecipe.link} target="_blank" rel="noopener noreferrer">
+                Eredeti recept link
+              </a>
+            </p>
+            <div className="modal-body">
+              {/* Display recipe body */}
+              <textarea
+                value={selectedRecipe.body}
+                readOnly={!isModalOpen}
+                onChange={(e) => setSelectedRecipe({ ...selectedRecipe, body: e.target.value })}
+              />
+            </div>
+            <div className="modal-actions">
+              <button onClick={closeModal}>Bezárás</button>
+              <button
+                onClick={() => {
+                  // Handle Save logic here
+                }}
+              >
+                Mentés
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <ToastContainer />
     </div>
