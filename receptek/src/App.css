@@ -236,27 +236,52 @@ textarea[readonly] {
     padding: 15px;
   }
 
+  /* Modál belső tartalmának javítása */
   .modal-content {
+    width: 100%;
+    height: 100%;
     padding: 10px;
-    max-height: 100%; /* Növeljük a modál belső maximális magasságát */
+    box-sizing: border-box; /* biztosítja, hogy a padding ne növelje a méretet */
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Megakadályozza a görgetést a modálon belül */
   }
 
+  /* Modal fejléce */
   .modal h2 {
     font-size: 1.2rem;
+    padding-bottom: 10px;
   }
 
+  /* Modal body rész */
+  .modal-body {
+    flex-grow: 1;
+    padding: 10px 0;
+    overflow-y: hidden; /* Nincs görgetés a body-ban */
+    flex-shrink: 0; /* Megakadályozza, hogy összenyomódjon */
+    max-height: 100%; /* Nagyobb maximális magasság, hogy a teljes tartalom elférjen */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Textarea módosítások */
   .modal-body textarea {
-    height: 60%; /* Csökkentett magasság, hogy ne töltsön el mindent */
-    font-size: 0.5rem; /* Kisebb betűméret */
+    width: 100%;
+    height: 100%; /* A teljes magasságot elfoglalja */
     padding: 2%;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #fff;
+    resize: none;
+    font-size: 1rem;
   }
 
-  .modal-body p {
-    font-size: 0.7rem;
-  }
-
+  /* Modal akciók */
   .modal-actions button {
-    font-size: 0.7rem;
-    padding: 6px 10px;
+    font-size: 0.8rem;
+    padding: 8px 12px;
   }
 }
+
