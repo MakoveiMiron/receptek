@@ -217,7 +217,7 @@ textarea[readonly] {
 @media (max-width: 768px) {
   body {
     width: 400px;
-    height: 80vh; /* Tölti ki a teljes magasságot */
+    height: 90%; /* Tölti ki a teljes magasságot */
     overflow: hidden; /* Elkerüljük a görgetést az oldalon */
   }
 
@@ -244,9 +244,8 @@ textarea[readonly] {
   }
 
   .modal-body textarea {
-    height: 70%; /* Állandó magasság */
+    height: 400px; /* Állandó magasság */
     font-size: 0.5rem; /* Kisebb betűméret */
-    padding: 2%;
     margin-bottom: none;
   }
 
