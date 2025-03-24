@@ -237,7 +237,7 @@ textarea[readonly] {
     width: 80%;
     font-size: 0.5rem; /* arányosan kisebb */
     padding: 2%;
-    margin-bottom: 30px;
+    margin-bottom: none;
   }
 
   .modal-body p {
