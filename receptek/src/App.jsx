@@ -91,6 +91,7 @@ function App() {
       setIsLoading(false);
     }
   };
+  console.log(selectedRecipe)
 
   return (
     <div className="container">
