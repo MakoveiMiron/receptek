@@ -224,7 +224,7 @@ textarea[readonly] {
   }
 
   .container {
-    width: 100%; /* Tölti ki a teljes szélességet */
+    width: 90%; /* Tölti ki a teljes szélességet */
     margin-top: 15px;
     padding: 15px;
   }
