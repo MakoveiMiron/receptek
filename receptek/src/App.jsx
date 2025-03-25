@@ -13,6 +13,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isEdited, setIsEdited] = useState(false);
 
   const itemsPerPage = 20;
 
@@ -21,7 +22,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => setRecipes(data))
       .catch((err) => console.error(err));
-  }, [recipes]);
+  }, [isEdited]);
 
   const handleAddRecipe = async () => {
     if (!link || !name) {
@@ -77,7 +78,7 @@ function App() {
       if (!response.ok) throw new Error('Hiba a recept mentése közben.');
       toast.success('Recept mentve!');
       setIsEditing(false);
-      setRecipes("a")
+      setIsEdited(true)
     } catch (error) {
       toast.error('Hiba történt a recept mentésekor!');
       console.error(error);
