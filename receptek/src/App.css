@@ -1,113 +1,54 @@
-/* General Body */
+/* Alap stílusok */
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #121212;
-  color: #e0e0e0;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh; /* Full screen height */
-  overflow: hidden; /* Elkerüljük a görgetést az oldalon */
+  background-color: #f5f5f5;
+  color: #333;
 }
 
-/* Container középre igazítás */
 .container {
-  width: 100%;
   max-width: 600px;
-  margin-top: 30px;
+  margin: auto;
   padding: 20px;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Középre igazítás */
 }
 
-/* Heading */
 h1 {
   text-align: center;
-  font-size: 2.5rem;
-  color: #ffffff;
-  margin-bottom: 30px;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Recipe List */
-.recipe-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
-}
-
-/* Recipe Item */
-.recipe-item {
-  background: #333;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.recipe-item:hover {
-  transform: translateY(-5px);
-}
-
-.recipe-item span {
-  font-size: 1.4rem;
-  color: #fff;
-}
-
-/* Input and Button */
-input,
-button {
-  width: 100%;
-  padding: 14px;
+input[type="text"] {
+  width: calc(50% - 10px);
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   font-size: 1rem;
-  border-radius: 8px;
-  margin-bottom: 10px;
 }
 
-input {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #444;
-}
-
-input:focus {
-  outline: none;
-  border-color: #6200ea;
-}
-
-.modal-actions button {
-  background-color: #6200ea;
-  color: white;
+button {
+  padding: 10px 20px;
+  margin: 5px;
   border: none;
+  border-radius: 10px;
+  background-color: #4CAF50;
+  color: white;
   cursor: pointer;
   transition: background-color 0.3s;
-  border-radius: 8px;
-  padding: 12px 18px;
 }
 
 button:hover {
-  background-color: #3700b3;
+  background-color: #45a049;
 }
 
-button:disabled {
-  background-color: #3c3c3c;
-  cursor: not-allowed;
-}
-
-/* Spinner */
 .spinner {
-  margin: 0 auto;
-  display: block;
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #6200ea;
+  border-top: 4px solid #4CAF50;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   animation: spin 1s linear infinite;
 }
 
@@ -116,167 +57,97 @@ button:disabled {
   100% { transform: rotate(360deg); }
 }
 
-/* Fullscreen Modal */
+.recipe-list {
+  margin-top: 2rem;
+}
+
+.recipe-item {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.recipe-item:hover {
+  transform: translateY(-3px);
+}
+
+/* Modal design */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #121212;
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start; /* Felső pozicionálás */
   z-index: 1000;
-  animation: slideIn 0.3s ease;
-  overflow: hidden; /* Megakadályozza a görgetést */
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .modal-content {
-  background-color: #1f1f1f;
+  background-color: white;
+  border-radius: 20px;
   padding: 20px;
-  border-radius: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: hidden; /* Megakadályozza a görgetést a modálon belül */
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-.modal h2 {
-  text-align: center;
-  font-size: 1.6rem;
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-/* Modal body */
-.modal-body {
-  flex-grow: 1;
-  padding: 10px 0;
+.modal-content h2 {
+  margin-top: 0;
 }
 
 .modal-body textarea {
-  justify-self: center;
-  width: 60%;
-  height: 1200px;
-  padding: 1%;
-  border-radius: 8px;
-  border: 1px solid #444;
-  background-color: #333;
-  color: #fff;
-  resize: none;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   font-size: 1rem;
+  resize: vertical;
 }
 
-.modal-body p {
-  margin: 12px 0;
-  font-size: 1rem;
-  color: #e0e0e0;
-}
-
-/* Modal actions */
 .modal-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 10px;
-  margin-top: auto;
+  margin-top: 20px;
 }
 
-.modal-actions button {
-  background-color: #6200ea;
-  color: white;
-  padding: 10px 14px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.modal-actions button:hover {
-  background-color: #3700b3;
-}
-
-textarea[disabled],
-textarea[readonly] {
-  background-color: #222;
-  cursor: not-allowed;
-  height: 900px;
-}
-
-/* Telefonos nézet finomítás */
-@media (max-width: 768px) {
-  body {
-    width: 100%; /* Eltávolítottam a fix szélességet, hogy alkalmazkodjon a képernyőhöz */
-    height: 100vh; /* Tölti ki a teljes magasságot */
-    overflow: hidden; /* Elkerüljük a görgetést az oldalon */
-  }
-
+/* Mobil nézet */
+@media (max-width: 600px) {
   .container {
-    width: 90%; /* Tölti ki a teljes szélességet */
-    margin-top: 15px;
-    padding: 15px;
+    padding: 10px;
   }
 
-  h1 {
-    font-size: 1.8rem;
+  input[type="text"] {
+    width: 100%;
+    margin: 5px 0;
   }
 
-  .recipe-item {
-    padding: 15px;
+  button {
+    width: 100%;
+    margin: 10px 0;
   }
 
   .modal-content {
-    padding: 10px;
-    height: 100%; /* Modál tartalmának teljes magasságot */
-    box-sizing: border-box; /* A padding ne növelje a modál méretét */
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding: 15px;
   }
 
-  .modal h2 {
-    font-size: 1.2rem;
-  }
-
-  /* Modal body rész */
-  .modal-body {
-    flex-grow: 1;
-    padding: 10px 0;
-    overflow-y: hidden;
-    flex-shrink: 0;
-  }
-
-  /* Textarea módosítások */
   .modal-body textarea {
-    width: 90%; /* Kitölti a képernyő szélességét */
-    height: 80vh; /* Állandó magasság a telefonos nézethez, 70%-a a képernyő magasságának */
-    padding: 2%; /* Kisebb padding */
-    border-radius: 8px;
-    border: 1px solid #444;
-    background-color: #333;
-    color: #fff;
-    resize: none;
-    font-size: 0.5rem;
-    margin: 0; /* Eltávolítja a margót */
+    height: 60vh;
   }
 
-  .modal-body p {
-    font-size: 0.7rem;
-  }
-
-  /* Modal actions */
-  .modal-actions button {
-    font-size: 0.7rem;
-    padding: 6px 10px;
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
   }
 }
-
