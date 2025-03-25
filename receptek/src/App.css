@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* Alap stílusok */
 body {
   font-family: 'Arial', sans-serif;
@@ -12,25 +11,11 @@ body {
   max-width: 600px;
   margin: auto;
   padding: 20px;
-=======
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #f9f9f9;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
->>>>>>> 57b65f1c57c77d2967b7befbf8e25ecd241f5c72
 }
 
 h1 {
   text-align: center;
   font-size: 2rem;
-<<<<<<< HEAD
   margin-bottom: 1.5rem;
 }
 
@@ -40,40 +25,17 @@ input[type="text"] {
   margin: 5px;
   border: 1px solid #ccc;
   border-radius: 10px;
-=======
-  margin-bottom: 20px;
-}
-
-input[type="text"] {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-sizing: border-box;
->>>>>>> 57b65f1c57c77d2967b7befbf8e25ecd241f5c72
   font-size: 1rem;
 }
 
 button {
-<<<<<<< HEAD
   padding: 10px 20px;
   margin: 5px;
   border: none;
   border-radius: 10px;
   background-color: #4CAF50;
   color: white;
-=======
-  width: 100%;
-  padding: 12px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 12px;
->>>>>>> 57b65f1c57c77d2967b7befbf8e25ecd241f5c72
   cursor: pointer;
-  font-size: 1rem;
-  margin-top: 8px;
   transition: background-color 0.3s;
 }
 
@@ -81,7 +43,6 @@ button:hover {
   background-color: #45a049;
 }
 
-<<<<<<< HEAD
 .spinner {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #4CAF50;
@@ -89,28 +50,13 @@ button:hover {
   width: 20px;
   height: 20px;
   animation: spin 1s linear infinite;
-=======
-.recipe-list {
-  margin-top: 20px;
 }
 
-.recipe-item {
-  background-color: white;
-  padding: 14px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
->>>>>>> 57b65f1c57c77d2967b7befbf8e25ecd241f5c72
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.recipe-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-<<<<<<< HEAD
 .recipe-list {
   margin-top: 2rem;
 }
@@ -130,21 +76,13 @@ button:hover {
 }
 
 /* Modal design */
-=======
->>>>>>> 57b65f1c57c77d2967b7befbf8e25ecd241f5c72
 .modal {
   position: fixed;
   top: 0;
   left: 0;
-<<<<<<< HEAD
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
-=======
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
->>>>>>> 57b65f1c57c77d2967b7befbf8e25ecd241f5c72
   display: flex;
   align-items: center;
   justify-content: center;
@@ -163,46 +101,53 @@ button:hover {
 
 .modal-content h2 {
   margin-top: 0;
-  font-size: 1.8rem;
-  text-align: center;
 }
 
 .modal-body textarea {
-  flex-grow: 1;
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 12px;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   font-size: 1rem;
-  resize: none;
-  margin-bottom: 20px;
+  resize: vertical;
 }
 
-.modal-actions button {
-  margin-top: 8px;
-  padding: 14px;
-  font-size: 1.1rem;
-  border-radius: 12px;
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border-left-color: #4CAF50;
-  animation: spin 1s linear infinite;
-  margin: 0 auto;
-}
+/* Mobil nézet */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+  input[type="text"] {
+    width: 100%;
+    margin: 5px 0;
+  }
 
-@media (min-width: 600px) {
+  button {
+    width: 100%;
+    margin: 10px 0;
+  }
+
   .modal-content {
-    width: 500px;
-    height: auto;
-    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    padding: 15px;
+  }
+
+  .modal-body textarea {
+    height: 60vh;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
   }
 }
