@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import RecipePage from './RecipePage';
 import './App.css';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [link, setLink] = useState('');
   const [name, setName] = useState('');
+  const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal állapot
-  const [selectedRecipe, setSelectedRecipe] = useState(null); // Kiválasztott recept
-  const [isEditing, setIsEditing] = useState(false); // Edit mode state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
 
+  const itemsPerPage = 20;
+
   useEffect(() => {
-    fetch(`https://receptek-backend-production.up.railway.app/recipes`)  // Backend URL
+    fetch(`https://receptek-backend-production.up.railway.app/recipes`)
       .then((res) => res.json())
       .then((data) => setRecipes(data))
       .catch((err) => console.error(err));
@@ -27,7 +30,6 @@ function App() {
       toast.error('Kérlek, add meg a recept linkjét és nevét!');
       return;
     }
-
     setIsLoading(true);
     try {
       const response = await fetch(`https://receptek-backend-production.up.railway.app/recipes`, {
@@ -35,12 +37,9 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ link, name }),
       });
-
       if (!response.ok) throw new Error('Hiba a recept hozzáadása közben.');
-
       const newRecipe = await response.json();
       setRecipes([...recipes, newRecipe]);
-
       toast.success('Recept hozzáadva sikeresen!');
       navigate(`/recipe/${newRecipe.id}`);
     } catch (error) {
@@ -59,11 +58,11 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedRecipe(null);
-    setIsEditing(false); // Reset editing state when modal is closed
+    setIsEditing(false);
   };
 
   const handleEdit = () => {
-    setIsEditing(true); // Enable editing mode
+    setIsEditing(true);
   };
 
   const handleSave = async () => {
@@ -71,7 +70,6 @@ function App() {
       toast.error('A recept szövege nem lehet üres!');
       return;
     }
-
     setIsLoading(true);
     try {
       const response = await fetch(`https://receptek-backend-production.up.railway.app/recipes/${selectedRecipe.id}`, {
@@ -79,9 +77,7 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ body: selectedRecipe.body }),
       });
-
       if (!response.ok) throw new Error('Hiba a recept mentése közben.');
-
       toast.success('Recept mentve!');
       setIsEditing(false);
     } catch (error) {
@@ -91,13 +87,22 @@ function App() {
       setIsLoading(false);
     }
   };
-  console.log(selectedRecipe)
+
+  const filteredRecipes = recipes.filter((r) =>
+    r.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const paginatedRecipes = filteredRecipes.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const totalPages = Math.ceil(filteredRecipes.length / itemsPerPage);
 
   return (
     <div className="container">
       <h1>Receptek</h1>
-
-      <div>
+      <div className="form-section">
         <input
           type="text"
           placeholder="Recept link"
@@ -111,23 +116,43 @@ function App() {
           onChange={(e) => setName(e.target.value)}
         />
         <button onClick={handleAddRecipe} disabled={isLoading}>
-          {isLoading ? (
-            <div className="spinner"></div>
-          ) : (
-            'Hozzáadás'
-          )}
+          {isLoading ? <div className="spinner"></div> : 'Hozzáadás'}
         </button>
       </div>
 
-      <div className="recipe-list">
-        {recipes.map((recipe) => (
+      <input
+        type="text"
+        placeholder="Keresés név alapján"
+        className="search-input"
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setCurrentPage(1);
+        }}
+      />
+
+      <div className="recipe-list-grid">
+        {paginatedRecipes.map((recipe) => (
           <div key={recipe.id} className="recipe-item" onClick={() => openModal(recipe)}>
             <span>{recipe.name}</span>
           </div>
         ))}
       </div>
 
-      {/* Modal */}
+      {totalPages > 1 && (
+        <div className="pagination">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentPage(index + 1)}
+              className={currentPage === index + 1 ? 'active' : ''}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      )}
+
       {isModalOpen && selectedRecipe && (
         <div className="modal">
           <div className="modal-content">
@@ -139,10 +164,11 @@ function App() {
             </p>
             <div className="modal-body">
               <textarea
-                value={selectedRecipe.body}
+                value={selectedRecipe.body || ''}
                 onChange={(e) => setSelectedRecipe({ ...selectedRecipe, body: e.target.value })}
-                style={{ height: '400px' }}
                 disabled={!isEditing}
+                style={{ height: '400px' }}
+                className={!isEditing ? 'disabled-textarea' : ''}
               />
             </div>
             <div className="modal-actions">
