@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -14,7 +13,6 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const navigate = useNavigate();
 
   const itemsPerPage = 20;
 
@@ -41,7 +39,6 @@ function App() {
       const newRecipe = await response.json();
       setRecipes([...recipes, newRecipe]);
       toast.success('Recept hozzáadva sikeresen!');
-      navigate(`/recipe/${newRecipe.id}`);
     } catch (error) {
       toast.error('Hiba történt a recept hozzáadásakor!');
       console.error(error);
