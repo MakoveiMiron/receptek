@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   if(toastNeeded === "toast"){
-    toast.success('Recept hozzáadva sikeresen!')
+    toast.success("Recept sikeresen módosítva!", { position: "top-right" })
     setTimeout(() => {
       localStorage.removeItem("toast")
     },'3500')   
@@ -46,8 +46,7 @@ function App() {
       if (!response.ok) throw new Error('Hiba a recept hozzáadása közben.');
       const newRecipe = await response.json();
       setRecipes([...recipes, newRecipe]);
-      localStorage.setItem("toast", "toast")
-      location.reload()
+      toast.success('Recept hozzáadva sikeresen!')
     } catch (error) {
       toast.error('Hiba történt a recept hozzáadásakor!');
       console.error(error);
@@ -86,7 +85,8 @@ function App() {
       if (!response.ok) throw new Error('Hiba a recept mentése közben.');
       toast.success('Recept mentve!');
       setIsEditing(false);
-      setIsEdited(true)
+      localStorage.setItem("toast", "toast")
+      location.reload()
     } catch (error) {
       toast.error('Hiba történt a recept mentésekor!');
       console.error(error);
