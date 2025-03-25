@@ -83,7 +83,6 @@ function App() {
         body: JSON.stringify({ body: selectedRecipe.body }),
       });
       if (!response.ok) throw new Error('Hiba a recept mentése közben.');
-      toast.success('Recept mentve!');
       setIsEditing(false);
       localStorage.setItem("toast", "toast")
       location.reload()
