@@ -47,6 +47,7 @@ function App() {
       const newRecipe = await response.json();
       setRecipes([...recipes, newRecipe]);
       localStorage.setItem("toast", "toast")
+      location.reload()
     } catch (error) {
       toast.error('Hiba történt a recept hozzáadásakor!');
       console.error(error);
