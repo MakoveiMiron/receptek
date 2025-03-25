@@ -13,7 +13,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [isEdited, setIsEdited] = useState(false);
+  const toastNeeded = localStorage.getItem("toast")
 
   const itemsPerPage = 20;
 
@@ -22,7 +22,14 @@ function App() {
       .then((res) => res.json())
       .then((data) => setRecipes(data))
       .catch((err) => console.error(err));
-  }, [isEdited]);
+  }, []);
+
+  if(toastNeeded === "toast"){
+    toast.success('Recept hozzáadva sikeresen!')
+    setTimeout(() => {
+      localStorage.removeItem("toast")
+    },'3500')   
+  }
 
   const handleAddRecipe = async () => {
     if (!link || !name) {
@@ -39,7 +46,7 @@ function App() {
       if (!response.ok) throw new Error('Hiba a recept hozzáadása közben.');
       const newRecipe = await response.json();
       setRecipes([...recipes, newRecipe]);
-      toast.success('Recept hozzáadva sikeresen!');
+      localStorage.setItem("toast", "toast")
     } catch (error) {
       toast.error('Hiba történt a recept hozzáadásakor!');
       console.error(error);
