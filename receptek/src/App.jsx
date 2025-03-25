@@ -28,7 +28,7 @@ function App() {
     toast.success("Recept sikeresen módosítva!", { position: "top-right" })
     setTimeout(() => {
       localStorage.removeItem("toast")
-    },'0')   
+    },'500')   
   }
 
   const handleAddRecipe = async () => {
