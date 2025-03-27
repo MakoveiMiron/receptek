@@ -32,28 +32,31 @@ function App() {
   }
 
   const handleAddRecipe = async () => {
-    if (!link || !name) {
-      toast.error('Kérlek, add meg a recept linkjét és nevét!');
-      return;
-    }
-    setIsLoading(true);
-    try {
-      const response = await fetch(`https://receptek-backend-production.up.railway.app/recipes`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ link, name }),
-      });
-      if (!response.ok) throw new Error('Hiba a recept hozzáadása közben.');
-      const newRecipe = await response.json();
-      setRecipes([...recipes, newRecipe]);
-      toast.success('Recept hozzáadva sikeresen!')
-    } catch (error) {
-      toast.error('Hiba történt a recept hozzáadásakor!');
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  if (!link || !name) {
+    toast.error('Kérlek, add meg a recept linkjét és nevét!');
+    return;
+  }
+  setIsLoading(true);
+  try {
+    const response = await fetch(`https://receptek-backend-production.up.railway.app/recipes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ link, name }),
+    });
+    if (!response.ok) throw new Error('Hiba a recept hozzáadása közben.');
+    const newRecipe = await response.json();
+    setRecipes([...recipes, newRecipe]);
+    setLink(''); // Input mezők törlése
+    setName('');
+    toast.success('Recept hozzáadva sikeresen!');
+  } catch (error) {
+    toast.error('Hiba történt a recept hozzáadásakor!');
+    console.error(error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const openModal = (recipe) => {
     setSelectedRecipe(recipe);
